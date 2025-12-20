@@ -1,4 +1,4 @@
-<?php 
+    <?php 
 $page_title = 'Home';
 include 'includes/header.php';
 
@@ -9,12 +9,49 @@ $special_offer = getActiveSpecialOffer();
 
 <!-- Hero Section -->
 <section class="hero-section">
-    <div class="container">
-        <h1 class="display-4 mb-4">Welcome to <?php echo SITE_NAME; ?></h1>
-        <p class="lead mb-4">Discover unique gifts, beautiful cards, and quality products for every occasion</p>
-        <a href="products.php" class="btn btn-light btn-lg">
-            <i class="fas fa-shopping-bag"></i> Shop Now
-        </a>
+    <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="1000">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+            <div class="carousel-item active" style="background-image: url('b2.jpg');">
+                <div class="container">
+                    <h1 class="display-4 mb-4">Welcome to <?php echo SITE_NAME; ?></h1>
+                    <p class="lead mb-4">Discover unique gifts, beautiful cards, and quality products for every occasion</p>
+                    <a href="products.php" class="btn btn-light btn-lg">
+                        <i class="fas fa-shopping-bag"></i> Shop Now
+                    </a>
+                </div>
+            </div>
+            <div class="carousel-item" style="background-image: url('b3.jfif');">
+                <div class="container">
+                    <h1 class="display-4 mb-4">Welcome to <?php echo SITE_NAME; ?></h1>
+                    <p class="lead mb-4">Discover unique gifts, beautiful cards, and quality products for every occasion</p>
+                    <a href="products.php" class="btn btn-light btn-lg">
+                        <i class="fas fa-shopping-bag"></i> Shop Now
+                    </a>
+                </div>
+            </div>
+            <div class="carousel-item" style="background-image: url('b4.jfif');">
+                <div class="container">
+                    <h1 class="display-4 mb-4">Welcome to <?php echo SITE_NAME; ?></h1>
+                    <p class="lead mb-4">Discover unique gifts, beautiful cards, and quality products for every occasion</p>
+                    <a href="products.php" class="btn btn-light btn-lg">
+                        <i class="fas fa-shopping-bag"></i> Shop Now
+                    </a>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
     </div>
 </section>
 
@@ -63,15 +100,18 @@ $special_offer = getActiveSpecialOffer();
 <!-- Categories Section -->
 <section class="py-5">
     <div class="container">
-        <h2 class="text-center mb-5">Shop by Category</h2>
+        <h2 class="text-center mb-5">Explore Our Categories</h2>
         <div class="row g-4">
             <?php foreach ($categories as $category): ?>
                 <div class="col-lg-3 col-md-4 col-sm-6">
                     <a href="products.php?category=<?php echo $category['id']; ?>" class="text-decoration-none">
                         <div class="card category-card">
                             <div class="card-body text-center p-4">
-                                <i class="fas fa-gift fa-3x text-primary mb-3"></i>
-                                <h5 class="card-title"><?php echo htmlspecialchars($category['name']); ?></h5>
+                                <i class="<?php echo getCategoryIcon($category['name']); ?> fa-3x text-primary mb-3"></i>
+                                <h5 class="card-title">
+                                    <i class="<?php echo getCategoryIcon($category['name']); ?> me-2"></i>
+                                    <?php echo htmlspecialchars($category['name']); ?>
+                                </h5>
                                 <p class="card-text text-muted"><?php echo htmlspecialchars($category['description']); ?></p>
                             </div>
                         </div>

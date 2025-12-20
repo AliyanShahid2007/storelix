@@ -682,4 +682,18 @@ function getAllChatSessions() {
     return $result->fetch_all(MYSQLI_ASSOC);
 }
 
+// Category Icon Function
+function getCategoryIcon($category_name) {
+    $icons = [
+        'Greeting Cards' => 'fas fa-envelope-open-text',
+        'Gift Articles' => 'fas fa-gift',
+        'Handbags' => 'fas fa-shopping-bag',
+        'Beauty Products' => 'fas fa-spa',
+        'Stationery' => 'fas fa-pen-fancy',
+        'Dolls & Toys' => 'fas fa-child'
+    ];
+
+    return $icons[$category_name] ?? 'fas fa-gift'; // Default to gift icon if category not found
+}
+
 ?>

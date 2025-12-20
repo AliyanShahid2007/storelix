@@ -100,33 +100,6 @@ CREATE TABLE IF NOT EXISTS special_offers (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
--- Live Chat Tables
-CREATE TABLE IF NOT EXISTS chat_sessions (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT NULL, -- NULL for guest users
-    guest_name VARCHAR(100) NULL,
-    guest_email VARCHAR(100) NULL,
-    status ENUM('active', 'closed', 'waiting') DEFAULT 'active',
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE SET NULL
-);
-
-CREATE TABLE IF NOT EXISTS chat_messages (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    session_id INT,
-    sender_type ENUM('user', 'admin') NOT NULL,
-    sender_id INT NULL, -- user_id for users, admin_id for admins
-    user_id INT NULL, -- For logged-in users
-    guest_name VARCHAR(100) NULL, -- For guest users
-    guest_email VARCHAR(100) NULL, -- For guest users
-    message TEXT NOT NULL,
-    file_path VARCHAR(255) NULL, -- For file attachments
-    is_read TINYINT(1) DEFAULT 0,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (session_id) REFERENCES chat_sessions(id) ON DELETE CASCADE,
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE SET NULL
-);
 
 
 

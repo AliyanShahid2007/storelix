@@ -35,8 +35,9 @@ $categories = getCategories();
                             All Products
                         </a>
                         <?php foreach ($categories as $cat): ?>
-                            <a href="products.php?category=<?php echo $cat['id']; ?>" 
+                            <a href="products.php?category=<?php echo $cat['id']; ?>"
                                class="list-group-item list-group-item-action <?php echo $category_id == $cat['id'] ? 'active' : ''; ?>">
+                                <i class="<?php echo getCategoryIcon($cat['name']); ?> me-2"></i>
                                 <?php echo htmlspecialchars($cat['name']); ?>
                             </a>
                         <?php endforeach; ?>

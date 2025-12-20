@@ -113,7 +113,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_status'])) {
                         </div>
                     </div>
 
-                    <?php if ($order['notes']): ?>
+                    <?php if (isset($order['notes']) && $order['notes']): ?>
                         <div class="mt-3">
                             <strong>Order Notes:</strong>
                             <p class="text-muted"><?php echo htmlspecialchars($order['notes']); ?></p>

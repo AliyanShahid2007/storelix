@@ -552,6 +552,38 @@ function deleteSpecialOffer($id) {
     return $stmt->execute();
 }
 
+// Homepage Banner Functions
+function getActiveHomepageBanners() {
+    global $db;
+    $result = $db->query("SELECT * FROM homepage_banners WHERE is_active = 1 ORDER BY sort_order ASC");
+    return $result->fetch_all(MYSQLI_ASSOC);
+}
+
+function getHomepageBannerById($id) {
+    global $db;
+    $id = intval($id);
+    $result = $db->query("SELECT * FROM homepage_banners WHERE id = $id");
+    return $result->fetch_assoc();
+}
+
+// Testimonials Functions
+function getActiveTestimonials($limit = null) {
+    global $db;
+    $sql = "SELECT * FROM testimonials WHERE is_active = 1 ORDER BY created_at DESC";
+    if ($limit) {
+        $sql .= " LIMIT " . intval($limit);
+    }
+    $result = $db->query($sql);
+    return $result->fetch_all(MYSQLI_ASSOC);
+}
+
+function getTestimonialById($id) {
+    global $db;
+    $id = intval($id);
+    $result = $db->query("SELECT * FROM testimonials WHERE id = $id");
+    return $result->fetch_assoc();
+}
+
 // Live Chat Functions
 function createChatSession($user_id = null, $guest_name = null, $guest_email = null) {
     global $db;

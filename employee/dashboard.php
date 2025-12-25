@@ -161,9 +161,10 @@ $recent_products = $result->fetch_all(MYSQLI_ASSOC);
                                     <tr>
                                         <td>
                                             <div class="d-flex align-items-center">
-                                                <img src="../<?php echo htmlspecialchars($product['image']); ?>"
+                                                <img src="../uploads/<?php echo htmlspecialchars($product['image']); ?>"
                                                      alt="<?php echo htmlspecialchars($product['name']); ?>"
-                                                     class="rounded me-2" style="width: 40px; height: 40px; object-fit: cover;">
+                                                     class="rounded me-2" style="width: 40px; height: 40px; object-fit: cover;"
+                                                     onerror="this.src='../uploads/placeholder.jpg'">
                                                 <div>
                                                     <strong><?php echo htmlspecialchars($product['name']); ?></strong>
                                                 </div>

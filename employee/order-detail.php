@@ -104,12 +104,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_status'])) {
                         </div>
                         <div class="col-md-6">
                             <p><strong>Total Amount:</strong> <?php echo formatPrice($order['total_amount']); ?></p>
-                            <p><strong>Payment Method:</strong> <?php echo ucfirst($order['payment_method']); ?></p>
-                            <p><strong>Payment Status:</strong>
-                                <span class="badge bg-<?php echo $order['payment_status'] == 'paid' ? 'success' : 'warning'; ?>">
-                                    <?php echo ucfirst($order['payment_status']); ?>
-                                </span>
-                            </p>
+                            <p><strong>Payment Method:</strong> <?php echo ucfirst($order['payment_method'] ?? 'Not specified'); ?></p>
                         </div>
                     </div>
 

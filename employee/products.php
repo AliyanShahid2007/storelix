@@ -113,9 +113,10 @@ $categories = getCategories();
                 <div class="col-md-6 col-lg-4 col-xl-3 mb-4">
                     <div class="card h-100">
                         <div class="position-relative">
-                            <img src="../<?php echo htmlspecialchars($product['image']); ?>"
+                            <img src="../uploads/<?php echo htmlspecialchars($product['image']); ?>"
                                  class="card-img-top" alt="<?php echo htmlspecialchars($product['name']); ?>"
-                                 style="height: 200px; object-fit: cover;">
+                                 style="height: 200px; object-fit: cover;"
+                                 onerror="this.src='../https://via.placeholder.com/300x200?text=No+Image';">
                             <?php if ($product['featured']): ?>
                                 <span class="badge bg-primary position-absolute top-0 start-0 m-2">
                                     <i class="fas fa-star"></i> Featured

@@ -1,35 +1,44 @@
     </main>
     
     <!-- Footer -->
-    <footer class="mt-5 footer" style="color: var(--footer-text);">
+    <footer class="mt-auto footer" style="color: var(--footer-text); background: var(--footer-bg); margin-top: auto;">
         <div class="container py-5">
-            <div class="row">
-                <div class="col-md-4 mb-4">
-                    <h5 class="mb-3"><i class="fas fa-store"></i> <?php echo SITE_NAME; ?></h5>
-                    <p class="mb-0 opacity-75">Your one-stop shop for greeting cards, gift articles, handbags, beauty products, and more!</p>
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                    <h5 class="mb-3 fw-bold"><i class="fas fa-store text-light me-2"></i><?php echo SITE_NAME; ?></h5>
+                    <p class="mb-0 opacity-75 lh-lg">Your one-stop shop for greeting cards, gift articles, handbags, beauty products, and more!</p>
                 </div>
-                <div class="col-md-4 mb-4">
-                    <h5 class="mb-3">Quick Links</h5>
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                    <h5 class="mb-3 fw-bold"><i class="fas fa-link text-light me-2"></i>Quick Links</h5>
                     <ul class="list-unstyled">
-                        <li class="mb-2"><a href="<?php echo ($is_admin_page || $is_employee_page) ? '../index.php' : 'index.php'; ?>" class="text-decoration-none opacity-75 hover-opacity-100" style="color: var(--footer-text);"><i class="fas fa-chevron-right me-2"></i>Home</a></li>
-                        <li class="mb-2"><a href="<?php echo ($is_admin_page || $is_employee_page) ? '../products.php' : 'products.php'; ?>" class="text-decoration-none opacity-75 hover-opacity-100" style="color: var(--footer-text);"><i class="fas fa-chevron-right me-2"></i>Products</a></li>
-                        <li class="mb-2"><a href="<?php echo ($is_admin_page || $is_employee_page) ? '../categories.php' : 'categories.php'; ?>" class="text-decoration-none opacity-75 hover-opacity-100" style="color: var(--footer-text);"><i class="fas fa-chevron-right me-2"></i>Categories</a></li>
-                        <li class="mb-2"><a href="<?php echo ($is_admin_page || $is_employee_page) ? '../cart.php' : 'cart.php'; ?>" class="text-decoration-none opacity-75 hover-opacity-100" style="color: var(--footer-text);"><i class="fas fa-chevron-right me-2"></i>Cart</a></li>
-                        <!-- Chat Support removed -->
+                        <li class="mb-2"><a href="<?php echo ($is_admin_page || $is_employee_page) ? '../index.php' : 'index.php'; ?>" class="text-decoration-none opacity-75 transition-opacity" style="color: var(--footer-text);" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.75'"><i class="fas fa-chevron-right me-2"></i>Home</a></li>
+                        <li class="mb-2"><a href="<?php echo ($is_admin_page || $is_employee_page) ? '../products.php' : 'products.php'; ?>" class="text-decoration-none opacity-75 transition-opacity" style="color: var(--footer-text);" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.75'"><i class="fas fa-chevron-right me-2"></i>Products</a></li>
+                        <li class="mb-2"><a href="<?php echo ($is_admin_page || $is_employee_page) ? '../categories.php' : 'categories.php'; ?>" class="text-decoration-none opacity-75 transition-opacity" style="color: var(--footer-text);" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.75'"><i class="fas fa-chevron-right me-2"></i>Categories</a></li>
+                        <li class="mb-2"><a href="<?php echo ($is_admin_page || $is_employee_page) ? '../cart.php' : 'cart.php'; ?>" class="text-decoration-none opacity-75 transition-opacity" style="color: var(--footer-text);" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.75'"><i class="fas fa-chevron-right me-2"></i>Cart</a></li>
                     </ul>
                 </div>
-                <div class="col-md-4 mb-4">
-                    <h5 class="mb-3">Contact Us</h5>
-                    <div class="opacity-75">
-                        <p class="mb-2"><i class="fas fa-envelope me-2"></i> <?php echo ADMIN_EMAIL; ?></p>
-                        <p class="mb-2"><i class="fas fa-phone me-2"></i> +1 (555) 123-4567</p>
-                        <p class="mb-0"><i class="fas fa-map-marker-alt me-2"></i> 123 Shopping Street</p>
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                    <h5 class="mb-3 fw-bold"><i class="fas fa-phone text-light me-2"></i>Contact Us</h5>
+                    <div class="opacity-75 lh-lg">
+                        <p class="mb-2"><i class="fas fa-envelope me-2"></i><a href="mailto:<?php echo ADMIN_EMAIL; ?>" style="color: var(--footer-text); text-decoration: none;"><?php echo ADMIN_EMAIL; ?></a></p>
+                        <p class="mb-2"><i class="fas fa-phone me-2"></i><a href="tel:+15551234567" style="color: var(--footer-text); text-decoration: none;">+1 (555) 123-4567</a></p>
+                        <p class="mb-0"><i class="fas fa-map-marker-alt me-2"></i>123 Shopping Street</p>
                     </div>
                 </div>
             </div>
             <hr class="my-4 opacity-25">
-            <div class="text-center">
-                <p class="mb-0 opacity-75">&copy; <?php echo date('Y'); ?> <?php echo SITE_NAME; ?>. All Rights Reserved.</p>
+            <div class="row align-items-center">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="mb-0 opacity-75"><small>&copy; <?php echo date('Y'); ?> <?php echo SITE_NAME; ?>. All Rights Reserved.</small></p>
+                </div>
+                <div class="col-md-6 text-center text-md-end mt-3 mt-md-0">
+                    <div class="footer-social-links">
+                        <a href="#" class="text-decoration-none opacity-75 me-3" style="color: var(--footer-text);" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-decoration-none opacity-75 me-3" style="color: var(--footer-text);" title="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-decoration-none opacity-75 me-3" style="color: var(--footer-text);" title="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-decoration-none opacity-75" style="color: var(--footer-text);" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
             </div>
         </div>
     </footer>

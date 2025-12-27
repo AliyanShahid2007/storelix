@@ -10,6 +10,9 @@ $testimonials = getActiveTestimonials(6); // Get up to 6 testimonials
 
 // Check for maintenance mode
 $maintenance_mode = $db->query("SELECT * FROM maintenance_mode WHERE is_enabled = 1 LIMIT 1")->fetch_assoc();
+
+// Get homepage statistics
+$homepage_stats = $db->query("SELECT * FROM homepage_stats WHERE is_active = 1 ORDER BY sort_order ASC LIMIT 4")->fetch_all(MYSQLI_ASSOC);
 ?>
 
 <!-- Maintenance Mode Banner -->
@@ -383,86 +386,9 @@ if (empty($news_announcements)) {
     </div>
 </section>
 
-<!-- Statistics Section -->
-<section class="py-5 statistics-section" id="statistics-section">
-    <div class="container">
-        <div class="text-center mb-5">
-            <h2 class="animate-on-scroll">Our Achievements</h2>
-            <p class="text-muted animate-on-scroll">Numbers that speak for themselves</p>
-        </div>
-        <div class="row g-4" id="statistics-container">
-            <!-- Statistics will be loaded via AJAX -->
-            <div class="col-12 text-center">
-                <div class="spinner-border text-primary" role="status">
-                    <span class="visually-hidden">Loading statistics...</span>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
 
-<!-- Achievements Section (Hidden initially, loads after 5 seconds) -->
-<section class="py-5 achievements-section" id="achievementsSection" style="display: none;">
-    <div class="container">
-        <div class="text-center mb-5">
-            <h2 class="animate-on-scroll"><i class="fas fa-trophy text-warning me-2"></i>Business Milestones</h2>
-            <p class="text-muted animate-on-scroll">Celebrating our growth and success</p>
-        </div>
-        <div class="row g-4 justify-content-center">
-            <!-- Happy Customers Achievement -->
-            <div class="col-md-6 col-lg-3">
-                <div class="achievement-card text-center p-4 border rounded bg-light">
-                    <i class="fas fa-users fa-3x mb-3 text-info"></i>
-                    <h5 class="mb-2">Happy Customers</h5>
-                    <div class="achievement-number" data-target="500">0</div>
-                    <p class="mb-2 small text-muted">Satisfied customers served</p>
-                    <div class="progress" style="height: 6px;">
-                        <div class="progress-bar bg-info" style="width: 0%"></div>
-                    </div>
-                </div>
-            </div>
 
-            <!-- Products Delivered Achievement -->
-            <div class="col-md-6 col-lg-3">
-                <div class="achievement-card text-center p-4 border rounded bg-light">
-                    <i class="fas fa-truck fa-3x mb-3 text-success"></i>
-                    <h5 class="mb-2">Products Delivered</h5>
-                    <div class="achievement-number" data-target="1200">0</div>
-                    <p class="mb-2 small text-muted">Successful deliveries made</p>
-                    <div class="progress" style="height: 6px;">
-                        <div class="progress-bar bg-success" style="width: 0%"></div>
-                    </div>
-                </div>
-            </div>
 
-            <!-- Revenue Generated Achievement -->
-            <div class="col-md-6 col-lg-3">
-                <div class="achievement-card text-center p-4 border rounded bg-light">
-                    <i class="fas fa-dollar-sign fa-3x mb-3 text-warning"></i>
-                    <h5 class="mb-2">Revenue Generated</h5>
-                    <div class="achievement-number" data-target="25000">0</div>
-                    <p class="mb-2 small text-muted">Total revenue in dollars</p>
-                    <div class="progress" style="height: 6px;">
-                        <div class="progress-bar bg-warning" style="width: 0%"></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Years of Service Achievement -->
-            <div class="col-md-6 col-lg-3">
-                <div class="achievement-card text-center p-4 border rounded bg-light">
-                    <i class="fas fa-calendar-alt fa-3x mb-3 text-primary"></i>
-                    <h5 class="mb-2">Years of Service</h5>
-                    <div class="achievement-number" data-target="3">0</div>
-                    <p class="mb-2 small text-muted">Years serving customers</p>
-                    <div class="progress" style="height: 6px;">
-                        <div class="progress-bar bg-primary" style="width: 0%"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
 
 <!-- Social Media Section -->
 <?php
@@ -831,6 +757,12 @@ document.addEventListener('DOMContentLoaded', function() {
             notification.style.animation = 'slideOutRight 0.5s ease-in forwards';
             setTimeout(() => notification.remove(), 500);
         }, 4000);
+    }
+
+    // Edit Achievement Function
+    function editAchievement(type) {
+        // Redirect to homepage-settings page with achievement type parameter
+        window.location.href = 'admin/homepage-settings.php?edit_achievement=' + type;
     }
 
 });

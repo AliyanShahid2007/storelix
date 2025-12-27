@@ -114,8 +114,53 @@
             themeToggle.addEventListener('click', function() { const currentTheme = body.getAttribute('data-theme'); if (currentTheme === 'dark') { body.removeAttribute('data-theme'); localStorage.setItem('theme','light'); icon.classList.remove('fa-sun'); icon.classList.add('fa-moon'); } else { body.setAttribute('data-theme','dark'); localStorage.setItem('theme','dark'); icon.classList.remove('fa-moon'); icon.classList.add('fa-sun'); } });
         });
 
-        function toggleSidebar() { const sidebar = document.getElementById('adminSidebar'); if (sidebar) sidebar.classList.toggle('show'); }
-        document.addEventListener('click', function(event) { const sidebar = document.getElementById('adminSidebar'); const toggleBtn = document.getElementById('sidebarToggle'); if (sidebar && toggleBtn && window.innerWidth < 768) { if (!sidebar.contains(event.target) && !toggleBtn.contains(event.target)) { sidebar.classList.remove('show'); } } });
+        function toggleSidebar() {
+            // Try adminSidebar first (for admin/employee pages)
+            const adminSidebar = document.getElementById('adminSidebar');
+            if (adminSidebar) {
+                adminSidebar.classList.toggle('show');
+                return;
+            }
+
+            // Try dashboard sidebar (for dashboard page)
+            const dashboardSidebar = document.getElementById('sidebar');
+            if (dashboardSidebar) {
+                dashboardSidebar.classList.toggle('show');
+                // Update main content margin for dashboard
+                const main = document.querySelector('main');
+                if (main && window.innerWidth <= 768) {
+                    const isVisible = dashboardSidebar.classList.contains('show');
+                    main.style.marginLeft = isVisible ? '250px' : '0';
+                }
+            }
+        }
+
+        // Handle admin sidebar toggle button
+        const adminToggle = document.getElementById('adminSidebarToggle');
+        if (adminToggle) {
+            adminToggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                toggleSidebar();
+                // Adjust footer margin when sidebar is shown
+                const footer = document.querySelector('footer');
+                const sidebar = document.getElementById('sidebar') || document.getElementById('adminSidebar');
+                if (footer && sidebar) {
+                    const isVisible = sidebar.classList.contains('show');
+                    footer.style.marginLeft = isVisible ? '250px' : '0';
+                }
+            });
+        }
+
+        // Handle mobile sidebar toggle button
+        const mobileToggle = document.getElementById('mobileSidebarToggle');
+        if (mobileToggle) {
+            mobileToggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                toggleSidebar();
+            });
+        }
+
+        document.addEventListener('click', function(event) { const sidebar = document.getElementById('adminSidebar'); const toggleBtn = document.getElementById('adminSidebarToggle'); const mobileBtn = document.getElementById('mobileSidebarToggle'); if (sidebar && (toggleBtn || mobileBtn) && window.innerWidth < 768) { if (!sidebar.contains(event.target) && (!toggleBtn || !toggleBtn.contains(event.target)) && (!mobileBtn || !mobileBtn.contains(event.target))) { sidebar.classList.remove('show'); } } });
     </script>
 </body>
 </html>

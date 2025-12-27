@@ -66,6 +66,16 @@ if (isLoggedIn()) {
             color: var(--text-color);
             transition: background-color 0.3s, color 0.3s;
         }
+
+        html {
+            /* Hide scrollbars for all browsers but keep scrolling functionality */
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+
+        html::-webkit-scrollbar {
+            display: none;  /* Chrome, Safari and Opera */
+        }
         
         .navbar {
             background: var(--navbar-bg);
@@ -78,13 +88,13 @@ if (isLoggedIn()) {
             color: var(--navbar-text) !important;
         }
 
-        #sidebarToggle {
+        #adminSidebarToggle {
             font-size: 1.5rem;
             padding: 0.5rem;
             transition: all 0.3s ease;
         }
 
-        #sidebarToggle:hover {
+        #adminSidebarToggle:hover {
             color: #ffc107 !important;
             transform: scale(1.1);
         }
@@ -2336,6 +2346,241 @@ if (isLoggedIn()) {
             border: 1px solid rgba(220, 53, 69, 0.3);
         }
 
+        /* Navbar Responsive Styles */
+        @media (max-width: 1199px) {
+            .navbar-brand {
+                font-size: 1.3rem;
+            }
+
+            .navbar-nav .nav-link {
+                margin: 0 5px;
+                font-size: 0.9rem;
+            }
+
+            .search-form {
+                max-width: 350px;
+            }
+        }
+
+        @media (max-width: 991px) {
+            .navbar-brand {
+                font-size: 1.2rem;
+            }
+
+            .navbar-nav .nav-link {
+                margin: 0 3px;
+                font-size: 0.85rem;
+                padding: 0.5rem 0.75rem;
+            }
+
+            .search-form {
+                max-width: 300px;
+                margin-right: 1rem !important;
+            }
+
+            .search-form .form-control {
+                font-size: 0.9rem;
+                padding: 0.375rem 0.75rem;
+            }
+
+            .search-form .btn {
+                padding: 0.375rem 0.75rem;
+                font-size: 0.9rem;
+            }
+
+            #theme-toggle {
+                padding: 0.375rem;
+                font-size: 1rem;
+            }
+
+            .notification-dropdown {
+                min-width: 280px;
+                max-width: 350px;
+            }
+
+            .navbar-toggler {
+                padding: 0.25rem 0.5rem;
+                font-size: 1.1rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 1rem 1.5rem;
+            }
+
+            .navbar-brand {
+                font-size: 1.1rem;
+                margin-right: 1rem;
+            }
+
+            .navbar-nav .nav-link {
+                margin: 0 5px;
+                font-size: 0.85rem;
+                padding: 0.75rem 0.75rem;
+                text-align: center;
+            }
+
+            .search-form {
+                max-width: 280px;
+                margin-right: 1rem !important;
+            }
+
+            .search-form .form-control {
+                font-size: 0.9rem;
+                padding: 0.5rem 0.75rem;
+            }
+
+            .search-form .btn {
+                padding: 0.5rem 0.75rem;
+                font-size: 0.9rem;
+            }
+
+            #theme-toggle {
+                padding: 0.5rem;
+                font-size: 1rem;
+                margin-right: 1rem !important;
+            }
+
+            .notification-dropdown {
+                min-width: 280px;
+                max-width: 320px;
+                left: -50px;
+                right: auto;
+            }
+
+            .navbar-toggler {
+                padding: 0.5rem 0.75rem;
+                font-size: 1.1rem;
+            }
+
+            .navbar-collapse {
+                background: var(--navbar-bg);
+                border-radius: 0.5rem;
+                margin-top: 0.75rem;
+                padding: 1.5rem;
+                box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+            }
+
+            .navbar-nav {
+                margin: 0;
+            }
+
+            .navbar-nav .nav-item {
+                margin-bottom: 0.5rem;
+            }
+
+            .cart-icon,
+            .notification-icon {
+                margin-right: 1rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .navbar {
+                padding: 0.5rem 1rem;
+            }
+
+            .navbar-brand {
+                font-size: 1rem;
+                margin-right: 0.5rem;
+            }
+
+            .navbar-brand img {
+                max-height: 35px;
+            }
+
+            .navbar-nav .nav-link {
+                padding: 0.5rem 0.5rem !important;
+                font-size: 0.9rem;
+                margin: 0;
+            }
+
+            .search-form {
+                max-width: 200px;
+                margin-right: 0.25rem !important;
+            }
+
+            .search-form .form-control {
+                font-size: 0.8rem;
+                padding: 0.25rem 0.5rem;
+            }
+
+            .search-form .btn {
+                padding: 0.25rem 0.5rem;
+                font-size: 0.8rem;
+            }
+
+            #theme-toggle {
+                padding: 0.25rem;
+                font-size: 0.8rem;
+                margin-right: 0.25rem !important;
+            }
+
+            .notification-dropdown {
+                min-width: 220px;
+                max-width: 280px;
+                left: -25px;
+            }
+
+            .navbar-toggler {
+                padding: 0.25rem 0.5rem;
+                font-size: 0.9rem;
+            }
+
+            .navbar-collapse {
+                padding: 0.75rem;
+            }
+
+            .sidebar-toggle {
+                width: 40px;
+                height: 40px;
+                font-size: 1.1rem;
+            }
+
+            .badge-cart,
+            .badge-notification {
+                font-size: 0.65rem;
+                padding: 0.2em 0.4em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .navbar-brand {
+                font-size: 0.95rem;
+            }
+
+            .navbar-nav .nav-link {
+                font-size: 0.85rem;
+                padding: 0.4rem 0.4rem !important;
+            }
+
+            .search-form {
+                max-width: 180px;
+            }
+
+            .search-form .form-control {
+                font-size: 0.75rem;
+            }
+
+            .search-form .btn {
+                font-size: 0.75rem;
+            }
+
+            #theme-toggle {
+                font-size: 0.75rem;
+            }
+
+            .notification-dropdown {
+                min-width: 200px;
+                left: -10px;
+            }
+
+            .navbar-toggler {
+                font-size: 0.8rem;
+            }
+        }
+
         /* Mobile Newsletter Form Adjustments */
         @media (max-width: 992px) {
             #newsletter-form {
@@ -2412,7 +2657,7 @@ if (isLoggedIn()) {
     <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
         <div class="container-fluid">
             <?php if ($is_admin_page || $is_employee_page): ?>
-                <button class="btn btn-link text-light me-2" id="sidebarToggle" title="Toggle Sidebar">
+                <button class="btn btn-link text-light me-2" id="adminSidebarToggle" title="Toggle Sidebar">
                     <i class="fas fa-bars"></i>
                 </button>
             <?php endif; ?>
@@ -2537,7 +2782,7 @@ if (isLoggedIn()) {
     </nav>
 
     <!-- Admin Sidebar -->
-    <?php if ($is_admin_page): ?>
+    <?php if ($is_admin_page && basename($_SERVER['PHP_SELF']) != 'dashboard.php'): ?>
     <aside class="admin-sidebar" id="adminSidebar">
         <div class="sidebar-header">
             <div class="sidebar-brand">
@@ -2632,7 +2877,7 @@ if (isLoggedIn()) {
     <?php endif; ?>
 
     <!-- Sidebar Toggle Button for Mobile -->
-    <button class="sidebar-toggle d-md-none" onclick="toggleSidebar()" id="sidebarToggle">
+    <button class="sidebar-toggle d-md-none" id="mobileSidebarToggle" onclick="toggleSidebar()">
         <i class="fas fa-bars"></i>
     </button>
 

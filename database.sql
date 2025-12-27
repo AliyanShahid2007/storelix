@@ -230,3 +230,10 @@ INSERT INTO news_announcements (title, content, is_featured, is_active) VALUES
 ('📦 Eco-Friendly Packaging Initiative - Going Green Together', 'We\'re committed to sustainability! Introducing our new eco-friendly packaging made from recycled materials. Help us reduce environmental impact while enjoying your favorite products.', 0, 1),
 ('🎨 Custom Gift Wrapping Service Now Available', 'Make your gifts extra special with our new custom gift wrapping service! Choose from various themes, colors, and add personal messages. Perfect for birthdays, anniversaries, and holidays.', 1, 1),
 ('🏆 Store Anniversary Sale - 25% Off Everything', 'Celebrating our 5th anniversary! Enjoy 25% off on all products for a limited time. Thank you for being part of our journey - here\'s to many more years of great shopping!', 1, 1);
+
+-- Insert Sample Homepage Statistics
+INSERT INTO homepage_stats (stat_key, stat_value, stat_label, icon_class, sort_order, is_active) VALUES
+('happy_customers', '5000+', 'Happy Customers', 'fa-users', 1, 1),
+('products_delivered', '15000+', 'Products Delivered', 'fa-box', 2, 1),
+('revenue_generated', '$500,000+', 'Revenue Generated', 'fa-dollar-sign', 3, 1),
+('years_service', '5+', 'Years of Service', 'fa-calendar-alt', 4, 1);

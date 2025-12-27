@@ -78,11 +78,7 @@ $low_stock_products = $db->query("SELECT * FROM products WHERE stock <= 5 ORDER 
                             <i class="fas fa-newspaper"></i> News & Updates
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="homepage-settings.php">
-                            <i class="fas fa-cog"></i> Homepage Settings
-                        </a>
-                    </li>
+
                     <li class="nav-item">
                         <a class="nav-link" href="social-media.php">
                             <i class="fas fa-share-alt"></i> Social Media
@@ -283,12 +279,7 @@ $low_stock_products = $db->query("SELECT * FROM products WHERE stock <= 5 ORDER 
                                         <span>Manage News</span>
                                     </a>
                                 </div>
-                                <div class="col-md-6 col-lg-4">
-                                    <a href="homepage-settings.php" class="btn btn-warning btn-lg w-100 d-flex align-items-center justify-content-center py-3 action-btn">
-                                        <i class="fas fa-cog fa-lg me-2"></i>
-                                        <span>Homepage Settings</span>
-                                    </a>
-                                </div>
+
                                 <div class="col-md-6 col-lg-4">
                                     <a href="social-media.php" class="btn btn-secondary btn-lg w-100 d-flex align-items-center justify-content-center py-3 action-btn">
                                         <i class="fas fa-share-alt fa-lg me-2"></i>
@@ -530,21 +521,14 @@ $low_stock_products = $db->query("SELECT * FROM products WHERE stock <= 5 ORDER 
     transition: left 0.3s ease;
 }
 
+/* Hide scrollbars */
 .sidebar::-webkit-scrollbar {
-    width: 6px;
+    display: none;
 }
 
-.sidebar::-webkit-scrollbar-track {
-    background: #f1f1f1;
-}
-
-.sidebar::-webkit-scrollbar-thumb {
-    background: #888;
-    border-radius: 3px;
-}
-
-.sidebar::-webkit-scrollbar-thumb:hover {
-    background: #555;
+.sidebar {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
 }
 
 main {
@@ -854,48 +838,41 @@ main {
     document.addEventListener('DOMContentLoaded', function() {
         const sidebar = document.getElementById('sidebar');
         const main = document.querySelector('main');
-        const sidebarToggle = document.getElementById('sidebarToggle');
+        const sidebarToggle = document.getElementById('mobileSidebarToggle');
         const footer = document.querySelector('footer');
 
         // Function to update main content margin based on screen size
         function updateMainMargin() {
             if (!main) return;
 
-            if (window.innerWidth > 768) {
-                // Desktop: Always show sidebar and adjust margin
-                sidebar.classList.add('show');
-                main.style.marginLeft = '250px';
-                if (footer) footer.style.marginLeft = '250px';
-            } else {
-                // Mobile: Sidebar hidden by default
-                sidebar.classList.remove('show');
-                main.style.marginLeft = '0';
-                if (footer) footer.style.marginLeft = '0';
-            }
+            // Always hide sidebar by default on all screen sizes
+            sidebar.classList.remove('show');
+            main.style.marginLeft = '0';
+            if (footer) footer.style.marginLeft = '0';
         }
 
         // Set initial state
         updateMainMargin();
 
         // Handle sidebar toggle button click - THIS IS THE MAIN FIX
-        if (sidebarToggle) {
+        if (sidebarToggle && window.innerWidth > 768) {
             sidebarToggle.addEventListener('click', function(e) {
                 e.preventDefault();
                 e.stopPropagation();
-                
+
                 // Toggle sidebar visibility
                 sidebar.classList.toggle('show');
-                
+
                 // Update margin based on new state (only on desktop)
-                if (window.innerWidth > 768) {
-                    const isVisible = sidebar.classList.contains('show');
-                    main.style.marginLeft = isVisible ? '250px' : '0';
-                    if (footer) footer.style.marginLeft = isVisible ? '250px' : '0';
-                }
-                
+                const isVisible = sidebar.classList.contains('show');
+                main.style.marginLeft = isVisible ? '250px' : '0';
+                if (footer) footer.style.marginLeft = isVisible ? '250px' : '0';
+
                 console.log('Sidebar toggled. Show:', sidebar.classList.contains('show'));
             });
         }
+
+
 
         // Close sidebar when clicking outside (on mobile only)
         document.addEventListener('click', function(e) {
@@ -1004,115 +981,7 @@ main {
             });
         });
 
-        // Achievements Loading with Special Animation and Effects
-        setTimeout(() => {
-            const achievementsSection = document.getElementById('achievementsSection');
-            if (achievementsSection) {
-                // Show the section with fade-in animation
-                achievementsSection.style.display = 'block';
-                achievementsSection.style.opacity = '0';
-                achievementsSection.style.transform = 'translateY(30px)';
 
-                // Trigger fade-in animation
-                setTimeout(() => {
-                    achievementsSection.style.opacity = '1';
-                    achievementsSection.style.transform = 'translateY(0)';
-                }, 100);
-
-                // Add special effects to achievement cards
-                const achievementCards = achievementsSection.querySelectorAll('.achievement-card');
-                achievementCards.forEach((card, index) => {
-                    // Reset initial state
-                    card.style.opacity = '0';
-                    card.style.transform = 'scale(0.8) rotateY(90deg)';
-                    card.style.transition = 'all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
-
-                    // Animate each card with staggered delay
-                    setTimeout(() => {
-                        card.style.opacity = '1';
-                        card.style.transform = 'scale(1) rotateY(0deg)';
-
-                        // Add glow effect for completed achievements
-                        if (card.classList.contains('bg-success') || card.classList.contains('bg-warning') ||
-                            card.classList.contains('bg-info') || card.classList.contains('bg-primary')) {
-                            card.style.boxShadow = '0 0 20px rgba(255, 215, 0, 0.6), 0 0 40px rgba(255, 215, 0, 0.4)';
-                            card.style.animation = 'achievementGlow 2s ease-in-out infinite alternate';
-                        }
-
-                        // Add sparkle effect
-                        addSparkleEffect(card);
-
-                        // Animate progress bars
-                        const progressBar = card.querySelector('.progress-bar');
-                        if (progressBar) {
-                            const targetWidth = progressBar.style.width;
-                            progressBar.style.width = '0%';
-                            setTimeout(() => {
-                                progressBar.style.transition = 'width 1.5s ease-out';
-                                progressBar.style.width = targetWidth;
-                            }, 500);
-                        }
-                    }, index * 200); // Staggered animation
-                });
-
-                // Show achievement unlocked notification
-                showAchievementNotification();
-            }
-        }, 5000); // 5 seconds delay
-
-        // Function to add sparkle effects
-        function addSparkleEffect(element) {
-            for (let i = 0; i < 8; i++) {
-                const sparkle = document.createElement('div');
-                sparkle.className = 'sparkle';
-                sparkle.style.cssText = `
-                    position: absolute;
-                    width: 4px;
-                    height: 4px;
-                    background: #ffd700;
-                    border-radius: 50%;
-                    pointer-events: none;
-                    animation: sparkleAnimation 1.5s ease-out forwards;
-                    left: ${Math.random() * 100}%;
-                    top: ${Math.random() * 100}%;
-                    z-index: 10;
-                `;
-                element.style.position = 'relative';
-                element.appendChild(sparkle);
-
-                // Remove sparkle after animation
-                setTimeout(() => {
-                    sparkle.remove();
-                }, 1500);
-            }
-        }
-
-        // Achievement unlocked notification
-        function showAchievementNotification() {
-            const notification = document.createElement('div');
-            notification.className = 'achievement-notification';
-            notification.innerHTML = `
-                <div class="achievement-popup">
-                    <i class="fas fa-trophy text-warning me-2"></i>
-                    <span>Achievements Unlocked!</span>
-                    <div class="achievement-progress-text">Check your progress below</div>
-                </div>
-            `;
-            notification.style.cssText = `
-                position: fixed;
-                top: 20px;
-                right: 20px;
-                z-index: 10000;
-                animation: slideInRight 0.5s ease-out;
-            `;
-            document.body.appendChild(notification);
-
-            // Auto remove after 4 seconds
-            setTimeout(() => {
-                notification.style.animation = 'slideOutRight 0.5s ease-in forwards';
-                setTimeout(() => notification.remove(), 500);
-            }, 4000);
-        }
 
         // Helper function to show notifications
         function showNotification(message) {

@@ -77,9 +77,17 @@ $stats = $db->query("SELECT * FROM homepage_stats ORDER BY sort_order ASC");
                                                     <?php echo $stat['is_active'] ? 'Active' : 'Inactive'; ?>
                                                 </span>
                                             </div>
-                                            <button class="btn btn-sm btn-outline-primary mt-2 w-100" onclick="editStat('<?php echo $stat['stat_key']; ?>')">
-                                                <i class="fas fa-edit me-1"></i>Edit
-                                            </button>
+                                            <div class="d-flex gap-1 mt-2">
+                                                <button class="btn btn-sm btn-outline-primary flex-fill" onclick="editStat('<?php echo $stat['stat_key']; ?>')" data-bs-toggle="tooltip" title="Edit this statistic">
+                                                    <i class="fas fa-edit me-1"></i>Edit
+                                                </button>
+                                                <button class="btn btn-sm btn-outline-warning" onclick="toggleStat('<?php echo $stat['stat_key']; ?>')" data-bs-toggle="tooltip" title="Toggle active status">
+                                                    <i class="fas fa-toggle-<?php echo $stat['is_active'] ? 'on' : 'off'; ?>"></i>
+                                                </button>
+                                                <button class="btn btn-sm btn-outline-danger" onclick="deleteStat('<?php echo $stat['stat_key']; ?>')" data-bs-toggle="tooltip" title="Delete this statistic">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -93,8 +101,12 @@ $stats = $db->query("SELECT * FROM homepage_stats ORDER BY sort_order ASC");
                         </div>
                     <?php endif; ?>
 
-                    <!-- Add New Stat Button -->
-                    <div class="text-center mt-3">
+                    <!-- Quick Actions -->
+                    <div class="d-flex justify-content-between align-items-center mt-3">
+                        <div class="text-muted small">
+                            <i class="fas fa-info-circle me-1"></i>
+                            Use the buttons below each statistic to edit, toggle status, or delete.
+                        </div>
                         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addStatModal">
                             <i class="fas fa-plus me-2"></i>Add New Statistic
                         </button>
@@ -142,7 +154,7 @@ $stats = $db->query("SELECT * FROM homepage_stats ORDER BY sort_order ASC");
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Add/Edit Homepage Statistic</h5>
+                <h5 class="modal-title" id="modal_title">Add/Edit Homepage Statistic</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <form method="POST">
@@ -189,7 +201,7 @@ $stats = $db->query("SELECT * FROM homepage_stats ORDER BY sort_order ASC");
 <script>
 function editStat(statKey) {
     // Fetch stat data and populate modal
-    fetch(`homepage-settings-actions.php?action=get_stat&key=${statKey}`)
+    fetch(`homepage-settings-actions.php?action=get_stat&key=${encodeURIComponent(statKey)}`)
         .then(response => response.json())
         .then(data => {
             if (data.success) {
@@ -199,10 +211,82 @@ function editStat(statKey) {
                 document.getElementById('icon_class').value = data.stat.icon_class;
                 document.getElementById('sort_order').value = data.stat.sort_order;
                 document.getElementById('is_active').checked = data.stat.is_active == 1;
+                document.getElementById('modal_title').textContent = 'Edit Homepage Statistic';
                 new bootstrap.Modal(document.getElementById('addStatModal')).show();
+            } else {
+                alert('Error loading statistic data: ' + (data.message || 'Unknown error'));
             }
+        })
+        .catch(error => {
+            console.error('Fetch error:', error);
+            alert('Error loading statistic data. Please try again.');
         });
 }
+
+function addNewStat() {
+    // Reset modal for adding new stat
+    document.getElementById('stat_key').value = '';
+    document.getElementById('stat_value').value = '';
+    document.getElementById('stat_label').value = '';
+    document.getElementById('icon_class').value = '';
+    document.getElementById('sort_order').value = '0';
+    document.getElementById('is_active').checked = true;
+    document.getElementById('modal_title').textContent = 'Add New Homepage Statistic';
+    new bootstrap.Modal(document.getElementById('addStatModal')).show();
+}
+
+function deleteStat(statKey) {
+    if (confirm('Are you sure you want to delete this statistic? This action cannot be undone.')) {
+        fetch(`homepage-settings-actions.php?action=delete_stat&key=${statKey}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    location.reload();
+                } else {
+                    alert('Error deleting statistic: ' + (data.message || 'Unknown error'));
+                }
+            })
+            .catch(error => {
+                console.error('Delete error:', error);
+                alert('Error deleting statistic. Please try again.');
+            });
+    }
+}
+
+function toggleStat(statKey) {
+    fetch(`homepage-settings-actions.php?action=toggle_stat&key=${statKey}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                location.reload();
+            } else {
+                alert('Error toggling statistic: ' + (data.message || 'Unknown error'));
+            }
+        })
+        .catch(error => {
+            console.error('Toggle error:', error);
+            alert('Error toggling statistic. Please try again.');
+        });
+}
+
+// Initialize tooltips and other enhancements on page load
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize Bootstrap tooltips
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
+    });
+
+    // Add loading state to form submission
+    const form = document.querySelector('#addStatModal form');
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            const submitBtn = form.querySelector('button[type="submit"]');
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Saving...';
+        });
+    }
+});
 </script>
 
 <?php include '../includes/footer.php'; ?>
